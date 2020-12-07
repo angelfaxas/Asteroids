@@ -35,8 +35,10 @@ namespace Engine
     }
 
 void GameObject::Teleport(float _x, float _y)
-{m_position.x;
-m_position.y;}
+{
+m_position.x; 
+m_position.y;
+}
 
 
 
