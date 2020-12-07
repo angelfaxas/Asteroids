@@ -1,7 +1,7 @@
 #include "GameObject.hpp"
 #include "App.hpp"
 #include <gl\GL.h>
-
+#include "vector2.hpp"
 #include <cstdlib>
 #include <cmath>
 
