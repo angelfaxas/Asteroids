@@ -1,5 +1,6 @@
 #include "Ship.hpp"
 #include "App.hpp"
+//#include "Physics.hpp"
 #include "Vector2.hpp"
 
 #include <gl\GL.h>
@@ -9,27 +10,20 @@
 #include <cmath>
 #include "GameObject.hpp"
 #include "Bullet.hpp"
-
+#include "Physics.hpp"
 
 namespace Engine
+{
 
-{ 
-	
-	static constexpr float MAX_VELOCITY = 500.0f;
-    static constexpr float THRUST = 15.0f;
-    static constexpr float DRAG_FORCE = 0.999f;
-    static constexpr float ANGLE_OFFSET = 90.0f;
-    static constexpr float BULLET_SPEED = 250;
-	
 	Ship::Ship(App *parent)
-		: GameObject(1.0f, 0.0f, 250.0f), m_parent(parent) // TODO: RR: Contemplate using a component based design approach
+		: GameObject(1.0f, RADIUS, 0.0f, 250.0f), m_parent(parent) // TODO: RR: Contemplate using a component based design approach
 	{
 		std::cout << "Construction of ship\n";
 		ChangeShip();
 	}
 
 	Ship::Ship(App *parent, float _x, float _y)
-		: GameObject(1.0f, 0.0f, 250.0f), m_parent(parent)
+		: GameObject(1.0f, RADIUS, 0.0f, 250.0f), m_parent(parent)
 	{
 		m_position = Math::Vector2(_x, _y);
 		std::cout << "Construction of ship\n";
@@ -48,7 +42,6 @@ namespace Engine
 
 	void Ship::RotateLeft(float deltaTime)
 	{
-
 		m_angle += m_rotation * deltaTime;
 	}
 
@@ -65,25 +58,25 @@ namespace Engine
 
 	void Ship::Update(float deltaTime)
 	{
-		//calculate speed
+		// Calculate speed
 		float speed =
 			std::fabs(m_velocity.Length());
 
-		//Cap speed
+		// Cap speed
 		if (speed > MAX_VELOCITY)
 		{
 			m_velocity.x = (m_velocity.x / speed) * MAX_VELOCITY;
 			m_velocity.y = (m_velocity.y / speed) * MAX_VELOCITY;
 		}
 
-		//Set new state
+		// Set new state
 		m_currentSpeed = speed;
 		m_position.x += m_velocity.x * deltaTime;
 		m_position.y += m_velocity.y * deltaTime;
 
-		//Applies drag
-
+		// Applies drag
 		ApplyDrag(Math::Vector2(DRAG_FORCE));
+
 		GameObject::Update(m_parent, deltaTime);
 	}
 

@@ -10,13 +10,14 @@
 //
 #include "SDLEvents.hpp"
 #include "TimeManager.hpp"
+#include "Asteroid.hpp"
 
 namespace Engine
 {
     class GameObject;
-    class Bullet;
     class Ship;
     class Asteroid;
+    class Bullet;
     class App : public SDLEvent
     {
     public:
@@ -64,6 +65,7 @@ namespace Engine
         void OnExit() override;
         void OnKeyDown(SDL_KeyboardEvent keyBoardEvent) override;
         void OnKeyUp(SDL_KeyboardEvent keyBoardEvent) override;
+        void UpdateScore(int delta);
 
         /*=========================================================================
         *           GAME FUNCTIONS  
@@ -71,7 +73,10 @@ namespace Engine
 
         void CleanGameObjects();
         void CreateBullet();
-        void DestroyGameObject(Engine::GameObject* object);
+        void CreateAsteroid(Engine::Asteroid::AsteroidSize::Size size, int amount, float x, float y);
+        void CreateDebris(Engine::Asteroid *object);
+        void CheckCollision();
+        void DestroyGameObject(Engine::GameObject *object);
 
         /* =============================================================
             * MEMBERS
@@ -81,15 +86,16 @@ namespace Engine
         int m_nUpdates;
         double m_lastFrameTime;
         std::string m_title;
-        SDL_Window* m_mainWindow;
+        SDL_Window *m_mainWindow;
         SDL_GLContext m_context;
         GameState::State m_state;
-        Engine::TimeManager* m_timer;
-        Engine::Ship* m_ship;
-        Engine::Asteroid* m_asteroid;
+        Engine::TimeManager *m_timer;
+        Engine::Ship *m_ship;
         Engine::Ship *m_current_Ship;
-        std::list<Engine::GameObject * > m_objects;
-        std::list<Engine::Bullet * > m_bullets;
+        std::list<Engine::GameObject *> m_objects;
+        std::list<Engine::Bullet *> m_bullets;
+        std::list<Engine::Asteroid *> m_asteroids;
+        int m_score;
     };
 } // namespace Engine
 
