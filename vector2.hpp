@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-
+//Engine::Math::Vector2::PI
 namespace Engine
 {
     namespace Math
@@ -32,8 +32,7 @@ namespace Engine
             float x;
             float y;
             float length;
-            //Adding PI to this library
-           static constexpr float  PI = 3.141592653;
+            static constexpr float PI = 3.141592653f;
         };
     } // namespace Math
 } // namespace Engine

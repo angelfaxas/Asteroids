@@ -76,7 +76,9 @@ namespace Engine
         void CreateAsteroid(Engine::Asteroid::AsteroidSize::Size size, int amount, float x, float y);
         void CreateDebris(Engine::Asteroid *object);
         void CheckCollision();
-        void DestroyGameObject(Engine::GameObject *object);
+        void DestroyGameObject
+        (Engine::GameObject *object);
+        void RespawnShip();
 
         /* =============================================================
             * MEMBERS

@@ -219,6 +219,11 @@ namespace Engine
 			m_bullets.erase(bulletResult);
 		}
 	}
+	void App::RespawnShip()
+	{
+		m_ship = new Engine::Ship(this);
+		m_objects.push_back(m_ship);
+	}
 
 	void App::UpdateScore(int delta)
 	{
@@ -259,6 +264,10 @@ namespace Engine
 
 			break;
 
+case SDL_SCANCODE_R:
+ 	SDL_Log("Restart!");
+ 	RespawnShip();
+ 	break;
 		case SDL_SCANCODE_SPACE:
 			SDL_Log("Shooting!");
 			CreateBullet();
